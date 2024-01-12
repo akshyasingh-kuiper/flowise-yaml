@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: Account KPI Service API
-  description: 'API for retrieving account KPI data.'
+  description: 'API for retrieving account KPI data based on query params.'
 
 servers:
   - url: https://api.kuiper.so/
@@ -100,11 +100,10 @@ paths:
       responses:
         '200':
           description: Successfully returned related KPI data
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RelatedKPIData'
-
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelatedKPIData'
 components:
   schemas:
     AccountKPIData:
