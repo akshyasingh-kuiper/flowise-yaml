@@ -3,7 +3,7 @@ info:
   title: KPI Service API
   version: 1.0.0
 servers:
-  - url: https://your.api-base-url.com
+  - url: https://api.kuiper.so
     description: Production server
 paths:
   /account_kpi:
