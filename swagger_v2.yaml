@@ -1,114 +1,71 @@
 openapi: 3.0.0
-
 info:
+  title: KPI Service API
   version: 1.0.0
-  title: Account KPI Service API
-  description: 'API for retrieving account KPI data based on query params.'
-
 servers:
-  - url: https://api.kuiper.so/
-    description: Account KPI Service API
-
+  - url: https://your.api-base-url.com
+    description: Production server
 paths:
   /account_kpi:
     get:
-      tags:
-        - Account KPI
-      description: Retrieves KPI data for a specific account based on various filter criteria.
-      summary: Retrieve account KPI data
-      operationId: getAccountKPI
+      summary: Retrieve Account KPIs
+      description: This endpoint retrieves various KPIs for a given account over a specified time period.
       parameters:
+        - name: kpi
+          in: query
+          required: true
+          description: Type of KPI to retrieve
+          schema:
+            type: string
+            enum:
+              - kpi_mrr_group
+        - name: frequency
+          in: query
+          required: true
+          description: Frequency of the KPI data
+          schema:
+            type: string
+            enum:
+              - MONTHLY
+        - name: start_date
+          in: query
+          required: true
+          description: Start date for the KPI data
+          schema:
+            type: string
+            format: date-time
+        - name: end_date
+          in: query
+          required: true
+          description: End date for the KPI data
+          schema:
+            type: string
+            format: date-time
+        - name: category
+          in: query
+          required: false
+          description: Category of the KPI data
+          schema:
+            type: string
+        - name: combine_for_date
+          in: query
+          required: false
+          description: Whether to combine data for the date
+          schema:
+            type: boolean
         - name: account_id
           in: query
           required: true
+          description: The account ID for which KPIs are being requested
           schema:
             type: string
-          description: Unique identifier for the account
-        - name: kpi
-          in: query
-          type: string
-          description: Key Performance Indicator
-        - name: frequency
-          in: query
-          type: string
-          description: Frequency of the KPI data (e.g., daily, monthly)
-        - name: category
-          in: query
-          type: string
-          description: Category of the KPI
-        - name: unit
-          in: query
-          type: string
-          description: Unit of measurement for the KPI
-        - name: start_date
-          in: query
-          type: string
-          description: Start date for filtering the data
-        - name: end_date
-          in: query
-          type: string
-          description: End date for filtering the data
-        - name: combine_for_date
-          in: query
-          type: boolean
-          description: Flag to combine data for the same dates
       responses:
-        '200':
-          description: Successfully returned account KPI data
+        200:
+          description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AccountKPIData'
-  /related_kpi:
-    get:
-      tags:
-        - Related KPI
-      description: Retrieves related KPI data for a specific account, filtering based on input criteria.
-      summary: Retrieve related KPI data
-      operationId: getRelatedKPI
-      parameters:
-        - name: account_id
-          in: query
-          required: true
-          schema:
-            type: string
-          description: Unique identifier for the account
-        - name: kpi
-          in: query
-          type: string
-          description: Key Performance Indicator
-        - name: frequency
-          in: query
-          type: string
-          description: Frequency of the KPI data (e.g., daily, monthly)
-        - name: category
-          in: query
-          type: string
-          description: Category of the KPI
-        - name: unit
-          in: query
-          type: string
-          description: Unit of measurement for the KPI
-        - name: start_date
-          in: query
-          type: string
-          description: Start date for filtering the data
-        - name: end_date
-          in: query
-          type: string
-          description: End date for filtering the data
-      responses:
-        '200':
-          description: Successfully returned related KPI data
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RelatedKPIData'
-components:
-  schemas:
-    AccountKPIData:
-      type: object
-      properties: // Define your properties for AccountKPIData here
-    RelatedKPIData:
-      type: object
-      properties: // Define your properties for RelatedKPIData here
+                type: object
+                # Define the response schema here
+                # Other response codes here
+
